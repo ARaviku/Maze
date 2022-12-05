@@ -2,15 +2,12 @@
 #include "bfs.h"
 #include "dfs.h"
 
-/** \brief Return the valid next states from a given state */
 std::vector<State> ProblemDefinition::validStates(const State &state) const
 {
-    // HINT: use isStateValid()
-    // --- Your code here
+
     std::vector<State> offsets = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
     std::vector<State> valid_offsets;
     std::vector<State> offsets1 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    // std::vector<State> valid_offsets1;
     if (allow_diagonal_ == true)
     {
         for (int i = 0; i < offsets.size(); i++)
@@ -37,13 +34,10 @@ std::vector<State> ProblemDefinition::validStates(const State &state) const
                 valid_offsets.push_back(neighbor);
             }
         }
-
-        // ---
     }
     return valid_offsets;
 }
 
-/** \brief Given a node, extract the path from it to the root */
 void TreeSearch::extractPath(NodePtr node)
 {
     // --- Your code here
@@ -57,7 +51,6 @@ void TreeSearch::extractPath(NodePtr node)
     // ---
 }
 
-/** \brief Solve the planning problem. Override TreeSearch::solve() */
 bool BFS::solve()
 {
     // check start and goal are valid
@@ -76,7 +69,7 @@ bool BFS::solve()
     }
 
     NodePtr solution;
-    // --- Your code here
+
     Node start_1;
     start_1.state = pdef_.startState();
     start_1.parent = nullptr;
@@ -98,9 +91,8 @@ bool BFS::solve()
         }
     }
 
-    // ---
 
-    // get the path from last node to root
+
     extractPath(solution);
 
     return true;
@@ -116,10 +108,7 @@ bool BFS::addNode(const NodePtr &node)
 
     for (int i = 0; i < neighbhors.size(); i++)
     {
-        // if (pdef_.isGoal(f))
-        // {
-        //     return true;
-        // }
+
         Node pt;
         pt.state = neighbhors[i];
         pt.parent = node;
@@ -143,7 +132,6 @@ bool BFS::addNode(const NodePtr &node)
     // ---
 }
 
-/** \brief Solve the planning problem. Override TreeSearch::solve() */
 bool DFS::solve()
 {
     // check start and goal are valid
@@ -162,7 +150,6 @@ bool DFS::solve()
     }
 
     NodePtr solution;
-    // --- Your code here
     Node start_1;
     start_1.state = pdef_.startState();
     start_1.parent = nullptr;
@@ -184,9 +171,6 @@ bool DFS::solve()
         }
     }
 
-    // ---
-
-    // get the path from last node to root
     extractPath(solution);
 
     return true;
@@ -220,12 +204,5 @@ bool DFS::addNode(const NodePtr &node)
         }
     }
 
-    // if (pdef_.isGoal(f))
-    // {
-    //     return true;
-    // }
-    // visited_.push_back(f);
-    // q_list.pop();
     return false;
-    // ---
 }
